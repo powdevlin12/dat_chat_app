@@ -1,14 +1,20 @@
 import 'package:dat_chat/colors.dart';
 import 'package:dat_chat/common/widgets/custom_button.dart';
+import 'package:dat_chat/constant/size.dart';
+import 'package:dat_chat/features/auth/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
 
+  void navigateToLoginScreen(BuildContext context) {
+    Navigator.pushNamed(context, LoginScreen.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final size = getSize(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -41,7 +47,9 @@ class LandingScreen extends StatelessWidget {
               width: size.width * 0.75,
               child: CustomButton(
                 text: 'AGREE AND CONTINUTE',
-                onPress: () {},
+                onPress: () {
+                  navigateToLoginScreen(context);
+                },
               ),
             ),
           ],
