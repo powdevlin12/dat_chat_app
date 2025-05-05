@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "839852287527",
+    "project_id": "dat-chat-e5f21",
+    "storage_bucket": "dat-chat-e5f21.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839852287527:android:36584427455f3b5f6b1002",
+        "android_client_info": {
+          "package_name": "com.example.dat_chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS6a3n6IwSgDtIuEyk-HkK-VvGCDuqRO8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
