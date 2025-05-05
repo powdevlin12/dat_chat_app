@@ -70,13 +70,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 Gap(6),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(country?.phoneCode != null
                         ? '+${country!.phoneCode}'
                         : '+'),
                     Gap(12),
                     SizedBox(
-                      width: size.width * 0.7,
+                      width: size.width * 0.75,
                       child: TextField(
                         controller: phoneController,
                         decoration: InputDecoration(hintText: 'Phone number'),
