@@ -2,6 +2,7 @@ import 'package:dat_chat/colors.dart';
 import 'package:dat_chat/features/landing/screens/landing_screen.dart';
 import 'package:dat_chat/router.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

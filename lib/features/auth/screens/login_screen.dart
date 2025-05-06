@@ -1,11 +1,14 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:dat_chat/colors.dart';
+import 'package:dat_chat/common/utils/utils.dart';
 import 'package:dat_chat/common/widgets/custom_button.dart';
 import 'package:dat_chat/constant/size.dart';
+import 'package:dat_chat/features/auth/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   static const routeName = '/login-screen';
 
   const LoginScreen({super.key});
@@ -14,7 +17,7 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final phoneController = TextEditingController();
   Country? country;
 
@@ -37,6 +40,21 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       },
     );
+  }
+
+  void sendPhoneNumber() {
+    String phoneNumber = phoneController.text.trim();
+    debugPrint('+${country!.phoneCode}$phoneNumber');
+    if (country != null && phoneNumber.isNotEmpty) {
+      ref
+          .read(authControllerProvider)
+          .signInWithPhone(context, '+${country!.phoneCode}$phoneNumber');
+      // = Provider.of(context, listen : true) = context.watch<>()
+      // Provider ref -> interact provider with provider
+      // widget ref -> make widget interact with provider
+    } else {
+      showSnackbar(context: context, content: 'Please fill all the field');
+    }
   }
 
   @override
@@ -96,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: size.width / 3,
                   child: CustomButton(
                     text: 'NEXT',
-                    onPress: () {},
+                    onPress: sendPhoneNumber,
                   ),
                 ),
                 Gap(size.height / 16),
