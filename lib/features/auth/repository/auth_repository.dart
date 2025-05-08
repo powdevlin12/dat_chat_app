@@ -19,10 +19,12 @@ class AuthRepository {
   AuthRepository({required this.auth, required this.firestore});
 
   void singInWithPhone(BuildContext context, String phoneNumber) async {
+    debugPrint('phone is $phoneNumber');
     try {
       await auth.verifyPhoneNumber(
           phoneNumber: phoneNumber,
           verificationCompleted: (PhoneAuthCredential credential) async {
+            debugPrint('phoneauth is an -------- verifynumber $credential');
             await auth.signInWithCredential(credential);
           },
           verificationFailed: (e) {

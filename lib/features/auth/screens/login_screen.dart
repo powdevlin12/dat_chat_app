@@ -5,6 +5,7 @@ import 'package:dat_chat/common/widgets/custom_button.dart';
 import 'package:dat_chat/constant/size.dart';
 import 'package:dat_chat/features/auth/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
@@ -99,6 +100,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       child: TextField(
                         controller: phoneController,
                         decoration: InputDecoration(hintText: 'Phone number'),
+                        keyboardType: TextInputType.phone,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+                        ],
                       ),
                     )
                   ],
