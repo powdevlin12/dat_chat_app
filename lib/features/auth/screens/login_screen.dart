@@ -50,9 +50,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       ref
           .read(authControllerProvider)
           .signInWithPhone(context, '+${country!.phoneCode}$phoneNumber');
-      // = Provider.of(context, listen : true) = context.watch<>()
-      // Provider ref -> interact provider with provider
-      // widget ref -> make widget interact with provider
     } else {
       showSnackbar(context: context, content: 'Please fill all the field');
     }
