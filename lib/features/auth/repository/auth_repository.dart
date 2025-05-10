@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dat_chat/common/repositories/common_firebase_storage_repository.dart';
 import 'package:dat_chat/common/utils/utils.dart';
 import 'package:dat_chat/features/auth/screens/otp_screen.dart';
 import 'package:dat_chat/features/auth/screens/user_information_screen.dart';
+import 'package:dat_chat/models/user_model.dart';
+import 'package:dat_chat/screens/mobile_layout_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -53,6 +58,42 @@ class AuthRepository {
           context, UserInfomationScreen.routeName, (route) => false);
     } on FirebaseAuthException catch (e) {
       showSnackbar(context: context, content: e.message!);
+    }
+  }
+
+  void saveUserdataToFirebase(
+      {required String name,
+      required File? profilePic,
+      required ProviderRef ref,
+      required BuildContext context}) async {
+    try {
+      String uid = auth.currentUser!.uid;
+      String photoUrl =
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Cristiano_Ronaldo_WC2022_-_02.jpg/250px-Cristiano_Ronaldo_WC2022_-_02.jpg';
+      if (profilePic != null) {
+        // photoUrl = await ref
+        //     .read(CommonFirebaseStorageRepositoryProvider)
+        //     .storeFileToFirebase('profilePic/$uid', profilePic);
+      }
+
+      var user = UserModel(
+        uid: uid,
+        name: name,
+        profilePic: photoUrl,
+        isOnline: true,
+        phoneNumber: auth.currentUser!.uid,
+        groupIds: [],
+      );
+
+      await firestore.collection('users').doc(uid).set(user.toMap());
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MobileLayoutScreen(),
+          ),
+          (route) => false);
+    } catch (e) {
+      showSnackbar(context: context, content: e.toString());
     }
   }
 }

@@ -42,6 +42,8 @@ dependencies:
   firebase_storage: ^12.4.5
   riverpod: ^2.6.1
   flutter_riverpod: ^2.6.1
+  image_picker: ^1.1.2
+  iconsax: ^0.0.8
 
 dev_dependencies:
   flutter_test:
