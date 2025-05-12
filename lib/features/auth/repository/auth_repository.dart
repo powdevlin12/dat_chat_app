@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dat_chat/common/repositories/common_firebase_storage_repository.dart';
 import 'package:dat_chat/common/utils/utils.dart';
 import 'package:dat_chat/features/auth/screens/otp_screen.dart';
 import 'package:dat_chat/features/auth/screens/user_information_screen.dart';
@@ -21,6 +20,16 @@ final authRepositoryProvider = Provider(
 class AuthRepository {
   final FirebaseAuth auth;
   final FirebaseFirestore firestore;
+
+  Future<UserModel?> getCurrentUserData() async {
+    var userData =
+        await firestore.collection('users').doc(auth.currentUser?.uid).get();
+    UserModel? user;
+    if (userData.data() != null) {
+      user = UserModel.fromMap(userData.data()!);
+    }
+    return user;
+  }
 
   AuthRepository({required this.auth, required this.firestore});
 

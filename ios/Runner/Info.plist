@@ -24,6 +24,8 @@
 	<string>We need library access</string>
 	<key>NSCameraUsageDescription</key>
 	<string>We need camera access</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Reason we need access to the contact list</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>

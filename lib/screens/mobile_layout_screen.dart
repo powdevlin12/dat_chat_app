@@ -7,7 +7,7 @@ class MobileLayoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('Mobile!'),
+      body: SafeArea(child: Text('Mobile!')),
     );
   }
 }
