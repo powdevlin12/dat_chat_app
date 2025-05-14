@@ -13,6 +13,12 @@ class SelectContactScreen extends ConsumerStatefulWidget {
 }
 
 class _SelectContactScreenState extends ConsumerState<SelectContactScreen> {
+  void selectContact(String phoneNumber, BuildContext context) {
+    SelectContactController selectContactController =
+        ref.read(selectContactControllerProvder);
+    selectContactController.selectContact(phoneNumber, context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,8 +42,16 @@ class _SelectContactScreenState extends ConsumerState<SelectContactScreen> {
               itemCount: contactsList.length,
               itemBuilder: (context, index) {
                 final contact = contactsList[index];
-                return ListTile(
-                  title: Text(contact.displayName),
+                return InkWell(
+                  onTap: () {
+                    selectContact(contact.phones[0].number, context);
+                  },
+                  child: ListTile(
+                    title: Text(
+                      contact.displayName,
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
                 );
               },
             ),

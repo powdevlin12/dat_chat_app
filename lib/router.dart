@@ -3,6 +3,7 @@ import 'package:dat_chat/features/auth/screens/otp_screen.dart';
 import 'package:dat_chat/features/auth/screens/user_information_screen.dart';
 import 'package:dat_chat/features/select_contacts/screens/select_contact_screen.dart';
 import 'package:dat_chat/screens/error_screen.dart';
+import 'package:dat_chat/screens/mobile_chat_screen.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoute(RouteSettings setting) {
@@ -23,6 +24,10 @@ Route<dynamic> generateRoute(RouteSettings setting) {
     case SelectContactScreen.routeName:
       return MaterialPageRoute(
         builder: (context) => SelectContactScreen(),
+      );
+    case MobileChatScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) => MobileChatScreen(),
       );
     default:
       return MaterialPageRoute(

@@ -90,7 +90,7 @@ class AuthRepository {
         name: name,
         profilePic: photoUrl,
         isOnline: true,
-        phoneNumber: auth.currentUser!.uid,
+        phoneNumber: auth.currentUser!.phoneNumber!,
         groupIds: [],
       );
 
