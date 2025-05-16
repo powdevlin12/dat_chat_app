@@ -1,19 +1,50 @@
+import 'package:dat_chat/features/auth/controller/auth_controller.dart';
+import 'package:dat_chat/models/user_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MobileChatScreen extends StatefulWidget {
+class MobileChatScreen extends ConsumerStatefulWidget {
   static const routeName = 'mobile-chat';
-  const MobileChatScreen({super.key});
+  final String name;
+  final String uid;
+  const MobileChatScreen({super.key, required this.name, required this.uid});
 
   @override
   _MobileChatScreenState createState() => _MobileChatScreenState();
 }
 
-class _MobileChatScreenState extends State<MobileChatScreen> {
+class _MobileChatScreenState extends ConsumerState<MobileChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Chat app"),
+        centerTitle: false,
+        title: StreamBuilder<UserModel>(
+          stream: ref.read(authControllerProvider).getUser(widget.uid),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return SizedBox(
+                width: 30,
+                height: 30,
+                child: CircularProgressIndicator(),
+              );
+            }
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'abc',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  'Offline',
+                  style: TextStyle(fontSize: 14),
+                )
+              ],
+            );
+          },
+        ),
+        // title: Text(widget.name),
       ),
     );
   }

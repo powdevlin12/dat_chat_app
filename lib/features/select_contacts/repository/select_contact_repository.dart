@@ -40,13 +40,20 @@ class SelectContactRepository {
         debugPrint(phoneNumber.replaceAll(' ', ''));
         debugPrint(user.phoneNumber);
 
-        if (phoneNumber.replaceAll(' ', '') == user.phoneNumber) {
+        if (phoneNumber.replaceAll(' ', '') == user.phoneNumber ||
+            phoneNumber.replaceAll(' ', '').replaceAll('0', '+84') ==
+                user.phoneNumber) {
           isFound = true;
           break;
         }
       }
       if (isFound) {
-        Navigator.pushNamed(context, MobileChatScreen.routeName);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) =>
+                MobileChatScreen(name: user!.name, uid: user.uid),
+          ),
+        );
       } else {
         showSnackbar(
             context: context, content: 'This phone  is not found in system');
