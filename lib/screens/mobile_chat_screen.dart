@@ -33,11 +33,11 @@ class _MobileChatScreenState extends ConsumerState<MobileChatScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'abc',
+                  snapshot.data!.name,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  'Offline',
+                  snapshot.data!.isOnline ? 'Online' : 'Offline',
                   style: TextStyle(fontSize: 14),
                 )
               ],

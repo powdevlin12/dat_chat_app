@@ -53,6 +53,6 @@ class AuthController {
   }
 
   Stream<UserModel> getUser(String userId) {
-    return ref.read(authControllerProvider).getUser(userId);
+    return authRepository.getUser(userId);
   }
 }
