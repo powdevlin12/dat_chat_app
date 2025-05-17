@@ -1,3 +1,4 @@
+import 'package:dat_chat/common/widgets/bottom_chat_field.dart';
 import 'package:dat_chat/features/auth/controller/auth_controller.dart';
 import 'package:dat_chat/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,36 @@ class _MobileChatScreenState extends ConsumerState<MobileChatScreen> {
             );
           },
         ),
-        // title: Text(widget.name),
+        actions: [
+          IconButton(
+            onPressed: () => {},
+            icon: const Icon(Icons.video_call),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.call),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.more_vert),
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: Text('List Chat'),
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: BottomChatField(),
+            ),
+            SizedBox(
+              width: double.infinity,
+            )
+          ],
+        ),
       ),
     );
   }
