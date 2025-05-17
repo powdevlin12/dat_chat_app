@@ -1,6 +1,7 @@
 import 'package:dat_chat/colors.dart';
 import 'package:dat_chat/features/auth/controller/auth_controller.dart';
 import 'package:dat_chat/features/landing/screens/landing_screen.dart';
+import 'package:dat_chat/features/list_chat/list_chat_screen.dart';
 import 'package:dat_chat/features/select_contacts/screens/select_contact_screen.dart';
 import 'package:dat_chat/router.dart';
 import 'package:dat_chat/screens/error_screen.dart';
@@ -39,7 +40,7 @@ class MyApp extends ConsumerWidget {
             data: (user) {
               if (user != null) {
                 // return MobileLayoutScreen();
-                return SelectContactScreen();
+                return ListChatScreen();
               }
               return LandingScreen();
             },

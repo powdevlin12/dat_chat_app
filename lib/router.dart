@@ -1,6 +1,7 @@
 import 'package:dat_chat/features/auth/screens/login_screen.dart';
 import 'package:dat_chat/features/auth/screens/otp_screen.dart';
 import 'package:dat_chat/features/auth/screens/user_information_screen.dart';
+import 'package:dat_chat/features/list_chat/list_chat_screen.dart';
 import 'package:dat_chat/features/select_contacts/screens/select_contact_screen.dart';
 import 'package:dat_chat/screens/error_screen.dart';
 import 'package:dat_chat/features/chat/mobile_chat_screen.dart';
@@ -24,6 +25,10 @@ Route<dynamic> generateRoute(RouteSettings setting) {
     case SelectContactScreen.routeName:
       return MaterialPageRoute(
         builder: (context) => SelectContactScreen(),
+      );
+    case ListChatScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) => ListChatScreen(),
       );
     case MobileChatScreen.routeName:
       final args = setting.arguments as Map<String, dynamic>;
