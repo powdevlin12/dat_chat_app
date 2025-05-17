@@ -1,17 +1,22 @@
 import 'package:dat_chat/colors.dart';
+import 'package:dat_chat/features/chat/chat_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
-class BottomChatField extends StatefulWidget {
-  const BottomChatField({super.key});
+class BottomChatField extends ConsumerStatefulWidget {
+  final String recieverUserId;
+
+  const BottomChatField({super.key, required this.recieverUserId});
 
   @override
   _BottomChatFieldState createState() => _BottomChatFieldState();
 }
 
-class _BottomChatFieldState extends State<BottomChatField> {
+class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   FocusNode focusNode = FocusNode();
   bool isSendIcon = false;
+  TextEditingController messageController = TextEditingController();
 
   void showKeyboard() => focusNode.requestFocus();
   void hideKeyboard() => focusNode.unfocus();
@@ -19,6 +24,24 @@ class _BottomChatFieldState extends State<BottomChatField> {
   @override
   void initState() {
     super.initState();
+    messageController.text = '';
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    messageController.dispose();
+  }
+
+  void sendMessage() {
+    ref
+        .read(chatControllerProvider)
+        .sendMessage(context, messageController.text, widget.recieverUserId);
+    hideKeyboard();
+    setState(() {
+      messageController.text = '';
+      isSendIcon = false;
+    });
   }
 
   @override
@@ -30,6 +53,7 @@ class _BottomChatFieldState extends State<BottomChatField> {
         children: [
           Expanded(
             child: TextFormField(
+              controller: messageController,
               onChanged: ((val) {
                 if (val.isNotEmpty) {
                   setState(() {
@@ -100,7 +124,7 @@ class _BottomChatFieldState extends State<BottomChatField> {
           ),
           Gap(12),
           InkWell(
-            onTap: () {},
+            onTap: sendMessage,
             child: SizedBox(
               height: 48,
               width: 48,

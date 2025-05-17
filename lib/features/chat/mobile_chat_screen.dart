@@ -68,7 +68,9 @@ class _MobileChatScreenState extends ConsumerState<MobileChatScreen> {
             ),
             SizedBox(
               width: double.infinity,
-              child: BottomChatField(),
+              child: BottomChatField(
+                recieverUserId: widget.uid,
+              ),
             ),
             SizedBox(
               width: double.infinity,
