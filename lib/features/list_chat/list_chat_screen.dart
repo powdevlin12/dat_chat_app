@@ -1,7 +1,10 @@
 import 'package:dat_chat/colors.dart';
+import 'package:dat_chat/features/list_chat/list_chat_controller.dart';
+import 'package:dat_chat/features/list_chat/widgets/list_chat_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ListChatScreen extends StatefulWidget {
+class ListChatScreen extends ConsumerStatefulWidget {
   static const routeName = 'list-chat-screen';
   const ListChatScreen({super.key});
 
@@ -9,7 +12,7 @@ class ListChatScreen extends StatefulWidget {
   _ListChatScreenState createState() => _ListChatScreenState();
 }
 
-class _ListChatScreenState extends State<ListChatScreen>
+class _ListChatScreenState extends ConsumerState<ListChatScreen>
     with WidgetsBindingObserver, TickerProviderStateMixin {
   late TabController tabBarController;
 
@@ -36,7 +39,7 @@ class _ListChatScreenState extends State<ListChatScreen>
           title: const Text(
             'WhatsApp',
             style: TextStyle(
-                fontWeight: FontWeight.w600, fontSize: 20, color: Colors.grey),
+                fontWeight: FontWeight.w600, fontSize: 22, color: Colors.grey),
           ),
           bottom: TabBar(
             controller: tabBarController,
@@ -58,7 +61,7 @@ class _ListChatScreenState extends State<ListChatScreen>
         body: TabBarView(
           controller: tabBarController,
           children: [
-            Center(child: Text('Chat')),
+            ListChatWidget(),
             Center(child: Text('Status')),
             Center(child: Text('Contact')),
           ],
