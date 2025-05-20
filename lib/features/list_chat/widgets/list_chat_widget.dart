@@ -1,4 +1,5 @@
 import 'package:dat_chat/features/list_chat/list_chat_controller.dart';
+import 'package:dat_chat/features/select_contacts/repository/select_contact_repository.dart';
 import 'package:dat_chat/models/chat_contact.dart';
 import 'package:dat_chat/screens/loader.dart';
 import 'package:flutter/material.dart';
@@ -27,33 +28,40 @@ class ListChatWidget extends ConsumerWidget {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       var chatContactData = snapshot.data![index];
-                      return ListTile(
-                        title: Text(
-                          chatContactData.name,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
+                      return InkWell(
+                        onTap: () {
+                          ref
+                              .read(selectContactRepositoryProvider)
+                              .selectContact(chatContactData.phone, context);
+                        },
+                        child: ListTile(
+                          title: Text(
+                            chatContactData.name,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
-                        ),
-                        subtitle: Padding(
-                          padding: const EdgeInsets.only(top: 2.0),
-                          child: Text(
-                            chatContactData.lastMessage,
-                            style: const TextStyle(fontSize: 15),
+                          subtitle: Padding(
+                            padding: const EdgeInsets.only(top: 2.0),
+                            child: Text(
+                              chatContactData.lastMessage,
+                              style: const TextStyle(fontSize: 15),
+                            ),
                           ),
-                        ),
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                            chatContactData.profilePic,
+                          leading: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                              chatContactData.profilePic,
+                            ),
+                            radius: 30,
                           ),
-                          radius: 30,
-                        ),
-                        trailing: Text(
-                          DateFormat.Hm()
-                              .format(DateTime.parse(chatContactData.timeSend)),
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 13,
+                          trailing: Text(
+                            DateFormat.Hm().format(
+                                DateTime.parse(chatContactData.timeSend)),
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 13,
+                            ),
                           ),
                         ),
                       );

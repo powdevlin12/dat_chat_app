@@ -33,12 +33,12 @@ class ChatRepository {
   ) async {
     // ** lưu người nhận vào Chat contact
     var recieverChatContact = ChatContactModel(
-      name: senderUserData.name,
-      profilePic: senderUserData.profilePic,
-      contactId: senderUserData.uid,
-      timeSend: timeSent.toIso8601String(),
-      lastMessage: text,
-    );
+        name: senderUserData.name,
+        profilePic: senderUserData.profilePic,
+        contactId: senderUserData.uid,
+        timeSend: timeSent.toIso8601String(),
+        lastMessage: text,
+        phone: senderUserData.phoneNumber);
     await firestore
         .collection('users')
         .doc(recieverUserId)
@@ -49,12 +49,12 @@ class ChatRepository {
         );
     // ** lưu người gửi vào Chat contact
     var senderChatContact = ChatContactModel(
-      name: recieverUserData!.name,
-      profilePic: recieverUserData.profilePic,
-      contactId: recieverUserData.uid,
-      timeSend: timeSent.toIso8601String(),
-      lastMessage: text,
-    );
+        name: recieverUserData!.name,
+        profilePic: recieverUserData.profilePic,
+        contactId: recieverUserData.uid,
+        timeSend: timeSent.toIso8601String(),
+        lastMessage: text,
+        phone: recieverUserData.phoneNumber);
     await firestore
         .collection('users')
         .doc(auth.currentUser!.uid)

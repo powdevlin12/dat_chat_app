@@ -41,12 +41,12 @@ class ListChatRepository {
 
         contacts.add(
           ChatContactModel(
-            name: user.name,
-            profilePic: user.profilePic,
-            contactId: chatContact.contactId,
-            timeSend: chatContact.timeSend,
-            lastMessage: chatContact.lastMessage,
-          ),
+              name: user.name,
+              profilePic: user.profilePic,
+              contactId: chatContact.contactId,
+              timeSend: chatContact.timeSend,
+              lastMessage: chatContact.lastMessage,
+              phone: chatContact.phone),
         );
       }
       return contacts;

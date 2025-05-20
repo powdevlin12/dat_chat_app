@@ -7,6 +7,7 @@ class ChatContactModel {
   String contactId;
   String timeSend;
   String lastMessage;
+  String phone;
 
   ChatContactModel({
     required this.name,
@@ -14,6 +15,7 @@ class ChatContactModel {
     required this.contactId,
     required this.timeSend,
     required this.lastMessage,
+    required this.phone,
   });
 
   ChatContactModel copyWith({
@@ -29,6 +31,7 @@ class ChatContactModel {
       contactId: contactId ?? this.contactId,
       timeSend: timeSend ?? this.timeSend,
       lastMessage: lastMessage ?? this.lastMessage,
+      phone: phone ?? phone,
     );
   }
 
@@ -39,6 +42,7 @@ class ChatContactModel {
       'contactId': contactId,
       'timeSend': timeSend,
       'lastMessage': lastMessage,
+      'phone': phone,
     };
   }
 
@@ -49,6 +53,7 @@ class ChatContactModel {
       contactId: map['contactId'] as String,
       timeSend: map['timeSend'] as String,
       lastMessage: map['lastMessage'] as String,
+      phone: map['phone'] as String,
     );
   }
 
@@ -60,25 +65,5 @@ class ChatContactModel {
   @override
   String toString() {
     return 'ChatContactModel(name: $name, profilePic: $profilePic, contactId: $contactId, timeSend: $timeSend, lastMessage: $lastMessage)';
-  }
-
-  @override
-  bool operator ==(covariant ChatContactModel other) {
-    if (identical(this, other)) return true;
-
-    return other.name == name &&
-        other.profilePic == profilePic &&
-        other.contactId == contactId &&
-        other.timeSend == timeSend &&
-        other.lastMessage == lastMessage;
-  }
-
-  @override
-  int get hashCode {
-    return name.hashCode ^
-        profilePic.hashCode ^
-        contactId.hashCode ^
-        timeSend.hashCode ^
-        lastMessage.hashCode;
   }
 }
