@@ -2,7 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dat_chat/common/utils/utils.dart';
 import 'package:dat_chat/models/user_model.dart';
-import 'package:dat_chat/features/chat/mobile_chat_screen.dart';
+import 'package:dat_chat/features/chat/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:riverpod/riverpod.dart';
@@ -50,8 +50,7 @@ class SelectContactRepository {
       if (isFound) {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) =>
-                MobileChatScreen(name: user!.name, uid: user.uid),
+            builder: (context) => ChatScreen(name: user!.name, uid: user.uid),
           ),
         );
       } else {

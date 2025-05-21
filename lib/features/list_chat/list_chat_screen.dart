@@ -1,5 +1,4 @@
 import 'package:dat_chat/colors.dart';
-import 'package:dat_chat/features/list_chat/list_chat_controller.dart';
 import 'package:dat_chat/features/list_chat/widgets/list_chat_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

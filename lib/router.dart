@@ -4,7 +4,7 @@ import 'package:dat_chat/features/auth/screens/user_information_screen.dart';
 import 'package:dat_chat/features/list_chat/list_chat_screen.dart';
 import 'package:dat_chat/features/select_contacts/screens/select_contact_screen.dart';
 import 'package:dat_chat/screens/error_screen.dart';
-import 'package:dat_chat/features/chat/mobile_chat_screen.dart';
+import 'package:dat_chat/features/chat/chat_screen.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoute(RouteSettings setting) {
@@ -30,12 +30,12 @@ Route<dynamic> generateRoute(RouteSettings setting) {
       return MaterialPageRoute(
         builder: (context) => ListChatScreen(),
       );
-    case MobileChatScreen.routeName:
+    case ChatScreen.routeName:
       final args = setting.arguments as Map<String, dynamic>;
       String name = args['name'];
       String uid = args['uid'];
       return MaterialPageRoute(
-        builder: (context) => MobileChatScreen(
+        builder: (context) => ChatScreen(
           name: name,
           uid: uid,
         ),

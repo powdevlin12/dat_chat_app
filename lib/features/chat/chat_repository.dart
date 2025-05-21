@@ -24,7 +24,25 @@ class ChatRepository {
     required this.auth,
   });
 
-  void _saveDataToContactsSubcollection(
+  Stream<List<Message>> getListMessages(String recieverUserId) {
+    return firestore
+        .collection('users')
+        .doc(auth.currentUser!.uid)
+        .collection('chats')
+        .doc(recieverUserId)
+        .collection('messages')
+        .orderBy('timeSent', descending: false)
+        .snapshots()
+        .asyncMap((event) {
+      List<Message> messages = [];
+      for (var doc in event.docs) {
+        messages.add(Message.fromMap(doc.data()));
+      }
+      return messages;
+    });
+  }
+
+  void _saveDataToChatsSubcollection(
     UserModel senderUserData,
     UserModel? recieverUserData,
     String text,
@@ -124,7 +142,7 @@ class ChatRepository {
 
       final messageId = Uuid().v1();
 
-      _saveDataToContactsSubcollection(
+      _saveDataToChatsSubcollection(
           senderUser, recieverUserData, text, timeSend, recieverUserId);
 
       _saveDataToMessageSubcollection(

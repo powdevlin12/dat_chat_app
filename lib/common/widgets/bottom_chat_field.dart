@@ -124,7 +124,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
           ),
           Gap(12),
           InkWell(
-            onTap: sendMessage,
+            onTap: isSendIcon ? sendMessage : () {},
             child: SizedBox(
               height: 48,
               width: 48,
