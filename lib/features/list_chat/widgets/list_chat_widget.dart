@@ -28,6 +28,7 @@ class ListChatWidget extends ConsumerWidget {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       var chatContactData = snapshot.data![index];
+
                       return InkWell(
                         onTap: () {
                           ref
@@ -43,10 +44,12 @@ class ListChatWidget extends ConsumerWidget {
                             ),
                           ),
                           subtitle: Padding(
-                            padding: const EdgeInsets.only(top: 2.0),
+                            padding: const EdgeInsets.only(top: 0.0),
                             child: Text(
                               chatContactData.lastMessage,
                               style: const TextStyle(fontSize: 15),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                           leading: CircleAvatar(
