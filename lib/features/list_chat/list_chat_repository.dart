@@ -25,6 +25,7 @@ class ListChatRepository {
         .collection('users')
         .doc(auth.currentUser!.uid)
         .collection('chats')
+        .orderBy('timeSend', descending: true)
         .snapshots()
         .asyncMap((event) async {
       debugPrint('event: ${auth.currentUser!.uid}');
