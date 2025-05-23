@@ -159,4 +159,12 @@ class ChatRepository {
       showSnackbar(context: context, content: e.toString());
     }
   }
+
+  void setStatus(bool isOnline) async {
+    debugPrint('setStatus: $isOnline');
+    return await firestore
+        .collection('users')
+        .doc(auth.currentUser!.uid)
+        .update({'isOnline': isOnline});
+  }
 }

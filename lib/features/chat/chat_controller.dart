@@ -38,4 +38,8 @@ class ChatController {
   Stream<List<Message>> getListMessages(String recieverUserId) {
     return chatRepository.getListMessages(recieverUserId);
   }
+
+  void setStatus(bool status) {
+    ref.read(chatRepositoryProvider).setStatus(status);
+  }
 }

@@ -8,7 +8,6 @@ import 'package:dat_chat/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
@@ -21,13 +20,31 @@ class ChatScreen extends ConsumerStatefulWidget {
   _ChatScreenState createState() => _ChatScreenState();
 }
 
-class _ChatScreenState extends ConsumerState<ChatScreen> {
+class _ChatScreenState extends ConsumerState<ChatScreen>
+    with WidgetsBindingObserver {
   final ScrollController messageController = ScrollController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
 
   @override
   void dispose() {
     super.dispose();
     messageController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      ref.read(chatControllerProvider).setStatus(true);
+    } else {
+      ref.read(chatControllerProvider).setStatus(false);
+    }
   }
 
   @override
