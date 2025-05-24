@@ -73,7 +73,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                 ),
                 Text(
                   snapshot.data!.isOnline ? 'Online' : 'Offline',
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 13),
                 )
               ],
             );
@@ -108,42 +108,43 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                         .jumpTo(messageController.position.maxScrollExtent);
                   });
                   return ListView.builder(
-                      controller: messageController,
-                      itemCount: snapshot.data?.length ?? 0,
-                      itemBuilder: (context, index) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        if (snapshot.hasError) {
-                          return const Center(
-                            child: Text('Something went wrong'),
-                          );
-                        }
-                        if (snapshot.data!.isEmpty) {
-                          return const Center(
-                            child: Text('Say hi to your friend'),
-                          );
-                        }
-                        final message = snapshot.data![index];
-                        String time = DateFormat.Hm().format(message.timeSent);
+                    controller: messageController,
+                    itemCount: snapshot.data?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (snapshot.hasError) {
+                        return const Center(
+                          child: Text('Something went wrong'),
+                        );
+                      }
+                      if (snapshot.data!.isEmpty) {
+                        return const Center(
+                          child: Text('Say hi to your friend'),
+                        );
+                      }
+                      final message = snapshot.data![index];
+                      String time = DateFormat.Hm().format(message.timeSent);
 
-                        if (message.senderId != widget.uid) {
-                          return MyMessageCard(
-                            message: message.text,
-                            time: time,
-                            username: 'me',
-                          );
-                        }
-
-                        return SendMessageCard(
+                      if (message.senderId != widget.uid) {
+                        return MyMessageCard(
                           message: message.text,
                           time: time,
-                          username: widget.name,
+                          username: 'me',
+                          replyMessage: message.repliedMessage,
                         );
-                      });
+                      }
+
+                      return SendMessageCard(
+                        message: message.text,
+                        time: time,
+                        username: widget.name,
+                      );
+                    },
+                  );
                 },
               ),
             ),

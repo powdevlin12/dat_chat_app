@@ -45,10 +45,16 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   }
 
   void sendMessage() {
-    ref
-        .read(chatControllerProvider)
-        .sendMessage(context, _messageController.text, widget.recieverUserId);
+    String messageReplied = ref.watch(messageReplyProvider)?.message ?? "";
+    ref.read(chatControllerProvider).sendMessage(
+          context: context,
+          text: _messageController.text,
+          recieverUserId: widget.recieverUserId,
+          repliedTo: '',
+          repliedMessage: messageReplied,
+        );
     hideKeyboard();
+    ref.watch(messageReplyProvider.state).update((state) => null);
     setState(() {
       _messageController.text = '';
       isSendIcon = false;

@@ -91,6 +91,8 @@ class ChatRepository {
     required String username,
     required MessageEnum messageType,
     required String? recieverUserName,
+    required String repliedMessage,
+    required String repliedTo,
   }) async {
     final message = Message(
       senderId: auth.currentUser!.uid,
@@ -100,6 +102,8 @@ class ChatRepository {
       timeSent: timeSent,
       messageId: messageId,
       isSeen: false,
+      repliedMessage: repliedMessage,
+      repliedTo: repliedTo,
     );
 
     // users -> sender id -> reciever id -> messages -> message id -> store message
@@ -131,6 +135,8 @@ class ChatRepository {
     required String text,
     required String recieverUserId,
     required UserModel senderUser,
+    required String repliedMessage,
+    required String repliedTo,
   }) async {
     try {
       final timeSend = DateTime.now();
@@ -154,6 +160,8 @@ class ChatRepository {
         messageType: MessageEnum.text,
         // senderUsername: senderUser.name,
         recieverUserName: recieverUserData.name,
+        repliedMessage: repliedMessage,
+        repliedTo: repliedTo,
       );
     } catch (e) {
       showSnackbar(context: context, content: e.toString());
