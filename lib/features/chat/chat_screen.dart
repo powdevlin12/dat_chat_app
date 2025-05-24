@@ -1,6 +1,7 @@
 import 'package:dat_chat/common/widgets/bottom_chat_field.dart';
 import 'package:dat_chat/features/auth/controller/auth_controller.dart';
 import 'package:dat_chat/features/chat/chat_controller.dart';
+import 'package:dat_chat/features/chat/widgets/message_reply.dart';
 import 'package:dat_chat/features/chat/widgets/my_message_card.dart';
 import 'package:dat_chat/features/chat/widgets/send_message_card.dart';
 import 'package:dat_chat/models/message_model.dart';
@@ -144,6 +145,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                 },
               ),
             ),
+            MessageReply(),
             SizedBox(
               width: double.infinity,
               child: BottomChatField(
