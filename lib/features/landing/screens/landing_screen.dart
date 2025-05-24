@@ -17,42 +17,44 @@ class LandingScreen extends StatelessWidget {
     final size = getSize(context);
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Gap(50),
-            Text(
-              'Welcome to Whatsapps',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 33, fontWeight: FontWeight.w600),
-            ),
-            Gap(size.height / 9),
-            Image.asset(
-              'assets/bg.png',
-              width: 340,
-              height: 340,
-              color: tabColor,
-            ),
-            Gap(size.height / 9),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Text(
-                'Read our Privacy Policy. Tap "Agree and continue" to accept the Terms of Service.',
-                style: TextStyle(color: colorGrey),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Gap(size.height / 12),
+              Text(
+                'Welcome to Whatsapps',
                 textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 33, fontWeight: FontWeight.w600),
               ),
-            ),
-            Gap(size.height / 16),
-            SizedBox(
-              width: size.width * 0.75,
-              child: CustomButton(
-                text: 'AGREE AND CONTINUTE',
-                onPress: () {
-                  navigateToLoginScreen(context);
-                },
+              Gap(size.height / 12),
+              Image.asset(
+                'assets/bg.png',
+                width: 340,
+                height: 340,
+                color: tabColor,
               ),
-            ),
-          ],
+              Gap(size.height / 16),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Text(
+                  'Read our Privacy Policy. Tap "Agree and continue" to accept the Terms of Service.',
+                  style: TextStyle(color: colorGrey),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Gap(size.height / 16),
+              SizedBox(
+                width: size.width * 0.75,
+                child: CustomButton(
+                  text: 'AGREE AND CONTINUTE',
+                  onPress: () {
+                    navigateToLoginScreen(context);
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

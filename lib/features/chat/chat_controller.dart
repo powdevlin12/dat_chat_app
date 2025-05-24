@@ -48,13 +48,18 @@ class ChatController {
   void onSwipeMessage(
       {required String message,
       required bool isMe,
-      required MessageEnum messageEnum}) {
+      required MessageEnum messageEnum,
+      required String username}) {
     ref.read(messageReplyProvider.state).update(
           (state) => MessageReplyProvider(
-            message: message,
-            isMe: isMe,
-            messageEnum: messageEnum,
-          ),
+              message: message,
+              isMe: isMe,
+              messageEnum: messageEnum,
+              username: username),
         );
+  }
+
+  void clearReplyMessage() {
+    ref.read(messageReplyProvider.state).update((state) => null);
   }
 }

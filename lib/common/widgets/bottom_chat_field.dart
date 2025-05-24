@@ -1,4 +1,5 @@
 import 'package:dat_chat/colors.dart';
+import 'package:dat_chat/common/provider/message_reply_provider.dart';
 import 'package:dat_chat/features/chat/chat_controller.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
@@ -65,8 +66,12 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      // padding: EdgeInsets.symmetric(horizontal: 16),
+    return Container(
+      decoration: BoxDecoration(
+        color: ref.watch(messageReplyProvider)?.message != null
+            ? webAppBarColor
+            : backgroundColor,
+      ),
       width: double.infinity,
       child: Column(
         children: [

@@ -6,11 +6,13 @@ class MessageReplyProvider {
   final String message;
   final bool isMe;
   final MessageEnum messageEnum;
+  final String username;
 
   MessageReplyProvider({
     required this.message,
     required this.isMe,
     required this.messageEnum,
+    required this.username,
   });
 }
 

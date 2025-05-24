@@ -23,10 +23,10 @@ class MyMessageCard extends ConsumerWidget {
     return SwipeTo(
       onLeftSwipe: (details) {
         ref.read(chatControllerProvider).onSwipeMessage(
-              message: message,
-              isMe: true,
-              messageEnum: MessageEnum.text,
-            );
+            message: message,
+            isMe: true,
+            messageEnum: MessageEnum.text,
+            username: username);
       },
       iconOnLeftSwipe: Icons.reply,
       swipeSensitivity: 8,
