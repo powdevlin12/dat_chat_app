@@ -8,7 +8,7 @@
 			"name": "dat_chat",
 			"type": "dart",
 			"request": "launch",
-			"deviceId": "A757F198-717A-4365-9894-CC6F71661CED"
+			"deviceId": "192.168.1.2:38031"
 		},
 		{
 			"name": "dat_chat (profile mode)",

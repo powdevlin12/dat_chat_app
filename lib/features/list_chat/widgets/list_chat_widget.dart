@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dat_chat/features/list_chat/list_chat_controller.dart';
 import 'package:dat_chat/features/select_contacts/repository/select_contact_repository.dart';
 import 'package:dat_chat/models/chat_contact.dart';
@@ -52,19 +53,21 @@ class ListChatWidget extends ConsumerWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          leading: CircleAvatar(
-                            backgroundImage: NetworkImage(
-                              chatContactData.profilePic,
+                          leading: CachedNetworkImage(
+                            imageUrl: chatContactData.profilePic,
+                            fit: BoxFit.cover,
+                            width: 60,
+                            height: 60,
+                            imageBuilder: (context, imageProvider) =>
+                                CircleAvatar(
+                              backgroundImage: imageProvider,
                             ),
-                            radius: 30,
-                          ),
-                          trailing: Text(
-                            DateFormat.Hm().format(
-                                DateTime.parse(chatContactData.timeSend)),
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 13,
-                            ),
+                            placeholder: (context, url) {
+                              debugPrint(url);
+                              return CircularProgressIndicator();
+                            },
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
                           ),
                         ),
                       );
