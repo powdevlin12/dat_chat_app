@@ -152,7 +152,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
             ),
             SizedBox(
               width: double.infinity,
-            )
+            ),
           ],
         ),
       ),
