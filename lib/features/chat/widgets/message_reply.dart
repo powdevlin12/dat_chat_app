@@ -16,9 +16,8 @@ class MessageReply extends ConsumerWidget {
       return const SizedBox.shrink();
     }
     return Container(
-      height: 56,
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
         color: webAppBarColor,
         borderRadius: BorderRadius.only(
@@ -42,10 +41,15 @@ class MessageReply extends ConsumerWidget {
                 ),
               ),
               Gap(4),
-              Text(
-                messageReply.message,
-                style: const TextStyle(
-                  fontSize: 12,
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width - 60,
+                ),
+                child: Text(
+                  messageReply.message,
+                  style: const TextStyle(
+                    fontSize: 12,
+                  ),
                 ),
               ),
             ],
