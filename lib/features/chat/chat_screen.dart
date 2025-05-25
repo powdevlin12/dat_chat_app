@@ -7,6 +7,7 @@ import 'package:dat_chat/features/chat/widgets/my_message_card.dart';
 import 'package:dat_chat/features/chat/widgets/send_message_card.dart';
 import 'package:dat_chat/models/message_model.dart';
 import 'package:dat_chat/models/user_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -129,19 +130,29 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                       final message = snapshot.data![index];
                       String time = DateFormat.Hm().format(message.timeSent);
 
+                      if (!message.isSeen &&
+                          FirebaseAuth.instance.currentUser!.uid ==
+                              message.recieverid) {
+                        ref.read(chatControllerProvider).setSeenMessage(
+                              messageId: message.messageId,
+                              recieverUserId: message.senderId,
+                            );
+                      }
+
                       if (message.senderId != widget.uid) {
                         return MyMessageCard(
-                          message: message.text,
-                          time: time,
-                          username: 'me',
-                          replyMessage: message.repliedMessage,
-                        );
+                            message: message.text,
+                            time: time,
+                            username: 'me',
+                            replyMessage: message.repliedMessage,
+                            isSeen: message.isSeen);
                       }
 
                       return SendMessageCard(
                         message: message.text,
                         time: time,
                         username: widget.name,
+                        replyMessage: message.repliedMessage,
                       );
                     },
                   );

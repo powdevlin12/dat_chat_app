@@ -4,6 +4,7 @@ import 'package:dat_chat/features/chat/chat_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:swipe_to/swipe_to.dart';
 
 class MyMessageCard extends ConsumerWidget {
@@ -11,14 +12,15 @@ class MyMessageCard extends ConsumerWidget {
   final String time;
   final String username;
   final String? replyMessage;
+  final bool isSeen;
 
-  const MyMessageCard({
-    super.key,
-    required this.message,
-    required this.time,
-    required this.username,
-    this.replyMessage,
-  });
+  const MyMessageCard(
+      {super.key,
+      required this.message,
+      required this.time,
+      required this.username,
+      this.replyMessage,
+      required this.isSeen});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,16 +38,44 @@ class MyMessageCard extends ConsumerWidget {
       animationDuration: const Duration(milliseconds: 120),
       child: Stack(
         children: [
-          Positioned(
-              top: 8,
+          if (replyMessage != '')
+            Positioned(
+              top: 2,
               right: 16,
-              child: Text(
-                replyMessage ?? '',
-                style: TextStyle(fontSize: 13, color: Colors.white60),
-              )),
+              child: Container(
+                padding: const EdgeInsets.only(
+                    left: 8, right: 8, top: 6, bottom: 16),
+                decoration: BoxDecoration(
+                  color: bgMessageReply,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width - 80,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Reply to Dat',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      replyMessage ?? '',
+                      style: TextStyle(fontSize: 12, color: Colors.white60),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           Column(
             children: [
-              if (replyMessage != '') Gap(24),
+              if (replyMessage != '') Gap(40),
               Align(
                 alignment: Alignment.centerRight,
                 child: ConstrainedBox(
@@ -76,12 +106,27 @@ class MyMessageCard extends ConsumerWidget {
                               fontSize: 14,
                             ),
                           ),
-                          Text(
-                            time,
-                            style: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.white60,
-                                fontWeight: FontWeight.w700),
+                          SizedBox(
+                            width: 60,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  time,
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.white60,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                                Gap(4),
+                                if (isSeen)
+                                  Icon(
+                                    Icons.check_circle_outline,
+                                    size: 16,
+                                    color: Colors.white60,
+                                  ),
+                              ],
+                            ),
                           )
                         ],
                       ),

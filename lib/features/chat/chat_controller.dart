@@ -66,4 +66,11 @@ class ChatController {
   void clearReplyMessage() {
     ref.read(messageReplyProvider.state).update((state) => null);
   }
+
+  void setSeenMessage(
+      {required String messageId, required String recieverUserId}) {
+    ref
+        .read(chatRepositoryProvider)
+        .setSeenMessage(messageId: messageId, recieverUserId: recieverUserId);
+  }
 }
