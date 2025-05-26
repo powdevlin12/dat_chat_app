@@ -32,14 +32,14 @@ class LandingScreen extends StatelessWidget {
                 'assets/bg.png',
                 width: 340,
                 height: 340,
-                color: tabColor,
+                color: Coloors.tabColor,
               ),
               Gap(size.height / 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Text(
                   'Read our Privacy Policy. Tap "Agree and continue" to accept the Terms of Service.',
-                  style: TextStyle(color: colorGrey),
+                  style: TextStyle(color: Coloors.colorGrey),
                   textAlign: TextAlign.center,
                 ),
               ),

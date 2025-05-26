@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dat_chat/common/utils/utils.dart';
 import 'package:dat_chat/features/auth/screens/otp_screen.dart';
 import 'package:dat_chat/features/auth/screens/user_information_screen.dart';
+import 'package:dat_chat/features/chat/chat_screen.dart';
+import 'package:dat_chat/features/list_chat/list_chat_screen.dart';
 import 'package:dat_chat/models/user_model.dart';
 import 'package:dat_chat/screens/mobile_layout_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -98,7 +100,7 @@ class AuthRepository {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => const MobileLayoutScreen(),
+            builder: (context) => const ListChatScreen(),
           ),
           (route) => false);
     } catch (e) {

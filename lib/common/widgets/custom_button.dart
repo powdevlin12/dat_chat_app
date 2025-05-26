@@ -11,7 +11,7 @@ class CustomButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPress,
       style: ElevatedButton.styleFrom(
-        backgroundColor: tabColor,
+        backgroundColor: Coloors.tabColor,
         minimumSize: Size(
           double.infinity,
           50,
@@ -23,7 +23,7 @@ class CustomButton extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: TextStyle(color: blackColor),
+        style: TextStyle(color: Coloors.blackColor),
       ),
     );
   }

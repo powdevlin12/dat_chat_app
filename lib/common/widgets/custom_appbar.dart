@@ -13,7 +13,7 @@ class CustomAppbar extends StatelessWidget {
         style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
       ),
       elevation: 0,
-      backgroundColor: backgroundColor,
+      backgroundColor: Coloors.backgroundColor,
     );
   }
 }

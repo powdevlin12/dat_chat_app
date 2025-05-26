@@ -46,7 +46,7 @@ class MyMessageCard extends ConsumerWidget {
                 padding: const EdgeInsets.only(
                     left: 8, right: 8, top: 6, bottom: 16),
                 decoration: BoxDecoration(
-                  color: bgMessageReply,
+                  color: Coloors.bgMessageReply,
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 constraints: BoxConstraints(
@@ -87,7 +87,7 @@ class MyMessageCard extends ConsumerWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    color: messageColor,
+                    color: Coloors.messageColor,
                     margin:
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                     child: Padding(

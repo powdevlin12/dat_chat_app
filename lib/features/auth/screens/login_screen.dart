@@ -65,7 +65,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
         ),
         elevation: 0,
-        backgroundColor: backgroundColor,
+        backgroundColor: Coloors.backgroundColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(18),
@@ -81,7 +81,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   onPressed: pickCountry,
                   child: Text(
                     'Pick country',
-                    style: TextStyle(color: tabColor, fontSize: 18),
+                    style: TextStyle(color: Coloors.tabColor, fontSize: 18),
                   ),
                 ),
                 Gap(6),

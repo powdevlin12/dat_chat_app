@@ -75,8 +75,8 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
     return Container(
       decoration: BoxDecoration(
         color: ref.watch(messageReplyProvider)?.message != null
-            ? webAppBarColor
-            : backgroundColor,
+            ? Coloors.webAppBarColor
+            : Coloors.backgroundColor,
       ),
       width: double.infinity,
       child: Column(
@@ -114,7 +114,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                           width: 0,
                         ),
                       ),
-                      fillColor: chatBarMessage,
+                      fillColor: Coloors.chatBarMessage,
                       filled: true,
                       prefixIcon: Container(
                         padding: EdgeInsets.only(left: 8),
@@ -125,14 +125,14 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                               onTap: _handleToggeShowEmoji,
                               child: Icon(
                                 Icons.emoji_emotions_outlined,
-                                color: colorGrey,
+                                color: Coloors.colorGrey,
                                 size: 24,
                               ),
                             ),
                             Gap(8),
                             Icon(
                               Icons.gif,
-                              color: colorGrey,
+                              color: Coloors.colorGrey,
                               size: 24,
                             ),
                           ],
@@ -144,13 +144,13 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                           children: [
                             Icon(
                               Icons.attach_file,
-                              color: colorGrey,
+                              color: Coloors.colorGrey,
                               size: 24,
                             ),
                             Gap(8),
                             Icon(
                               Icons.camera_alt_outlined,
-                              color: colorGrey,
+                              color: Coloors.colorGrey,
                               size: 24,
                             ),
                           ],
@@ -166,7 +166,7 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
                     height: 48,
                     width: 48,
                     child: CircleAvatar(
-                      backgroundColor: tabColor,
+                      backgroundColor: Coloors.tabColor,
                       child: Icon(
                         isSendIcon ? Icons.send : Icons.mic,
                         color: Colors.white,

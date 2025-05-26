@@ -56,11 +56,11 @@ class _UserInfomationScreenState extends ConsumerState<UserInfomationScreen> {
                           backgroundImage: FileImage(image!),
                         )
                       : CircleAvatar(
-                          backgroundColor: colorGrey,
+                          backgroundColor: Coloors.colorGrey,
                           child: Icon(
                             Iconsax.user,
                             size: 80,
-                            color: blackColor,
+                            color: Coloors.blackColor,
                           ),
                         ),
                 ),
@@ -94,7 +94,7 @@ class _UserInfomationScreenState extends ConsumerState<UserInfomationScreen> {
                   onTap: storeUserData,
                   child: Icon(
                     Icons.check,
-                    color: colorGrey,
+                    color: Coloors.colorGrey,
                     size: 30,
                   ),
                 )

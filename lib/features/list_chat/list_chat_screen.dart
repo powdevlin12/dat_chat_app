@@ -42,9 +42,9 @@ class _ListChatScreenState extends ConsumerState<ListChatScreen>
           ),
           bottom: TabBar(
             controller: tabBarController,
-            indicatorColor: tabColor,
+            indicatorColor: Coloors.tabColor,
             indicatorWeight: 4,
-            labelColor: tabColor,
+            labelColor: Coloors.tabColor,
             unselectedLabelColor: Colors.grey,
             labelStyle: const TextStyle(
               fontWeight: FontWeight.bold,

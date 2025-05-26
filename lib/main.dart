@@ -33,8 +33,8 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       title: 'Whatsapp UI',
       theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: backgroundColor,
-          appBarTheme: AppBarTheme(color: appBarColor)),
+          scaffoldBackgroundColor: Coloors.backgroundColor,
+          appBarTheme: AppBarTheme(color: Coloors.appBarColor)),
       onGenerateRoute: (settings) => generateRoute(settings),
       home: ref.watch(userDataAuthProvider).when(
             data: (user) {

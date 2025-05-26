@@ -28,7 +28,7 @@ class OtpScreen extends ConsumerWidget {
           style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
         ),
         elevation: 0,
-        backgroundColor: backgroundColor,
+        backgroundColor: Coloors.backgroundColor,
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 16),
