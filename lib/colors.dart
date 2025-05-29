@@ -18,4 +18,6 @@ class Coloors {
   static const mobileChatBoxColor = Color.fromRGBO(31, 44, 52, 1);
   static const colorGrey = Colors.grey;
   static const blackColor = Colors.black;
+  static const whiteColor = Colors.white;
+  static const redColor = Colors.red;
 }

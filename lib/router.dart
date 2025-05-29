@@ -5,6 +5,7 @@ import 'package:dat_chat/features/list_chat/list_chat_screen.dart';
 import 'package:dat_chat/features/select_contacts/screens/select_contact_screen.dart';
 import 'package:dat_chat/screens/error_screen.dart';
 import 'package:dat_chat/features/chat/chat_screen.dart';
+import 'package:dat_chat/features/create_group/create_group_screen.dart';
 import 'package:flutter/material.dart';
 
 Route<dynamic> generateRoute(RouteSettings setting) {
@@ -29,6 +30,10 @@ Route<dynamic> generateRoute(RouteSettings setting) {
     case ListChatScreen.routeName:
       return MaterialPageRoute(
         builder: (context) => ListChatScreen(),
+      );
+    case CreateGroupScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) => CreateGroupScreen(),
       );
     case ChatScreen.routeName:
       final args = setting.arguments as Map<String, dynamic>;

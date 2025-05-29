@@ -8,9 +8,11 @@ import 'package:dat_chat/screens/error_screen.dart';
 import 'package:dat_chat/screens/loader.dart';
 import 'package:dat_chat/screens/mobile_layout_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'firebase_options.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +38,16 @@ class MyApp extends ConsumerWidget {
           scaffoldBackgroundColor: Coloors.backgroundColor,
           appBarTheme: AppBarTheme(color: Coloors.appBarColor)),
       onGenerateRoute: (settings) => generateRoute(settings),
+      supportedLocales: [
+        Locale('en', 'US'), // English
+        Locale('vi', 'VI'), // Vietnam
+      ],
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        AppLocalizations.delegate,
+        // This is generated automatically by intl package
+      ],
       home: ref.watch(userDataAuthProvider).when(
             data: (user) {
               if (user != null) {

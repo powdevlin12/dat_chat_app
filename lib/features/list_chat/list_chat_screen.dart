@@ -1,7 +1,9 @@
 import 'package:dat_chat/colors.dart';
+import 'package:dat_chat/features/create_group/create_group_screen.dart';
 import 'package:dat_chat/features/list_chat/widgets/list_chat_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ListChatScreen extends ConsumerStatefulWidget {
   static const routeName = 'list-chat-screen';
@@ -28,6 +30,10 @@ class _ListChatScreenState extends ConsumerState<ListChatScreen>
     WidgetsBinding.instance.removeObserver(this);
   }
 
+  void _handleNavigateCreategroup() {
+    Navigator.pushNamed(context, CreateGroupScreen.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -51,11 +57,18 @@ class _ListChatScreenState extends ConsumerState<ListChatScreen>
             ),
             indicatorSize: TabBarIndicatorSize.tab,
             tabs: [
-              Tab(text: 'CHAT'),
+              Tab(text: AppLocalizations.of(context)!.chat),
               Tab(text: 'STATUS'),
               Tab(text: 'CONTACT'),
             ],
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _handleNavigateCreategroup,
+          foregroundColor: Coloors.textColor,
+          backgroundColor: Coloors.tabColor,
+          shape: CircleBorder(),
+          child: const Icon(Icons.message),
         ),
         body: TabBarView(
           controller: tabBarController,
