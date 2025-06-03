@@ -62,8 +62,32 @@ class _CreateGroupScreenState extends ConsumerState<CreateGroupScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          debugPrint(_searchByPhoneController.text);
+        onPressed: () async {
+          if (_nameController.text.trim().isEmpty) {
+            showSnackbar(context: context, content: 'Please enter group name');
+            return;
+          }
+          if (listMember.isEmpty) {
+            showSnackbar(
+                context: context, content: 'Please add at least one member');
+            return;
+          }
+          showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+          await ref.read(createGroupControllerProvider).createGroup(
+                context: context,
+                nameGroup: _nameController.text.trim(),
+                members: listMember,
+              );
+          if (context.mounted) {
+            Navigator.pop(context); // Dismiss loading
+            Navigator.pop(context); // Back to previous screen
+          }
         },
         foregroundColor: Coloors.textColor,
         backgroundColor: Coloors.tabColor,
@@ -201,6 +225,9 @@ class _CreateGroupScreenState extends ConsumerState<CreateGroupScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(
+                      width: double.infinity,
+                    ),
                     Text(
                       'List members',
                       style:
@@ -253,6 +280,7 @@ class _CreateGroupScreenState extends ConsumerState<CreateGroupScreen> {
                           );
                         },
                       ),
+                    if (listMember.isEmpty) Text('Have not member is selected')
                   ],
                 ),
               ),

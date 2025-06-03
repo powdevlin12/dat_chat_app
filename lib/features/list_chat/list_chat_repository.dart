@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dat_chat/models/chat_contact.dart';
+import 'package:dat_chat/models/group_model.dart';
 import 'package:dat_chat/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -28,9 +29,6 @@ class ListChatRepository {
         .orderBy('timeSend', descending: true)
         .snapshots()
         .asyncMap((event) async {
-      debugPrint('event: ${auth.currentUser!.uid}');
-      debugPrint('docs count: ${event.docs.length}');
-      debugPrint('docs data: ${event.docs.map((doc) => doc.data()).toList()}');
       List<ChatContactModel> contacts = [];
       for (var doc in event.docs) {
         var chatContact = ChatContactModel.fromMap(doc.data());
@@ -52,6 +50,23 @@ class ListChatRepository {
       }
       return contacts;
     });
+  }
+
+  Stream<List<GroupModel>> getGroupsChat() {
+    try {
+      return firestore.collection('groups').snapshots().asyncMap((event) {
+        List<GroupModel> listGroup = [];
+        for (var document in event.docs) {
+          debugPrint('Group data: ${document.data()}');
+          GroupModel group = GroupModel.fromMap(document.data());
+          listGroup.add(group);
+        }
+        return listGroup;
+      });
+    } catch (e) {
+      debugPrint('Error getting groups chat: $e');
+      return Stream.value([]);
+    }
   }
 
   // Thêm hàm này để test trực tiếp

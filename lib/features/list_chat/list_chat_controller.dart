@@ -1,5 +1,6 @@
 import 'package:dat_chat/features/list_chat/list_chat_repository.dart';
 import 'package:dat_chat/models/chat_contact.dart';
+import 'package:dat_chat/models/group_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final listChatControllerProvider = Provider<ListChatController>((ref) {
@@ -20,5 +21,9 @@ class ListChatController {
 
   Stream<List<ChatContactModel>> getChatContacts() {
     return listChatRepository.getChatContacts();
+  }
+
+  Stream<List<GroupModel>> getGroupChat() {
+    return listChatRepository.getGroupsChat();
   }
 }
