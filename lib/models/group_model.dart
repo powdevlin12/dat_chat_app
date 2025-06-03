@@ -60,7 +60,7 @@ class GroupModel {
       groupId: map['groupId'] as String,
       lastMessage: map['lastMessage'] as String,
       groupPic: map['groupPic'] as String,
-      membersUid: List<String>.from((map['membersUid'] as List<String>)),
+      membersUid: List<String>.from(map['membersUid'] ?? []),
       timeSent: map['timeSent'] as String,
     );
   }
