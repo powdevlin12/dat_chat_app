@@ -23,21 +23,23 @@ class ChatController {
   });
 
   // Add your chat-related methods and properties here
-  void sendMessage(
-      {required BuildContext context,
-      required String text,
-      required String recieverUserId,
-      required String repliedTo,
-      required String repliedMessage}) {
+  void sendMessage({
+    required BuildContext context,
+    required String text,
+    required String recieverUserId,
+    required String repliedTo,
+    required String repliedMessage,
+    required String groupId,
+  }) {
     ref.read(userDataAuthProvider).whenData(
           (value) => chatRepository.sendTextMessage(
-            context: context,
-            text: text,
-            recieverUserId: recieverUserId,
-            senderUser: value!,
-            repliedMessage: repliedMessage,
-            repliedTo: repliedTo,
-          ),
+              context: context,
+              text: text,
+              recieverUserId: recieverUserId,
+              senderUser: value!,
+              repliedMessage: repliedMessage,
+              repliedTo: repliedTo,
+              groupId: groupId),
         );
   }
 

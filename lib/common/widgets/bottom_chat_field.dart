@@ -8,8 +8,10 @@ import 'package:gap/gap.dart';
 
 class BottomChatField extends ConsumerStatefulWidget {
   final String recieverUserId;
+  final String groupId;
 
-  const BottomChatField({super.key, required this.recieverUserId});
+  const BottomChatField(
+      {super.key, required this.recieverUserId, required this.groupId});
 
   @override
   _BottomChatFieldState createState() => _BottomChatFieldState();
@@ -47,12 +49,12 @@ class _BottomChatFieldState extends ConsumerState<BottomChatField> {
   void sendMessage() {
     String messageReplied = ref.watch(messageReplyProvider)?.message ?? "";
     ref.read(chatControllerProvider).sendMessage(
-          context: context,
-          text: _messageController.text,
-          recieverUserId: widget.recieverUserId,
-          repliedTo: '',
-          repliedMessage: messageReplied,
-        );
+        context: context,
+        text: _messageController.text,
+        recieverUserId: widget.recieverUserId,
+        repliedTo: '',
+        repliedMessage: messageReplied,
+        groupId: widget.groupId);
     hideKeyboard();
     ref.watch(messageReplyProvider.state).update((state) => null);
     setState(() {

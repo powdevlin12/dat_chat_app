@@ -179,8 +179,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
             SizedBox(
               width: double.infinity,
               child: BottomChatField(
-                recieverUserId: widget.uid,
-              ),
+                  recieverUserId: widget.uid, groupId: widget.groupId),
             ),
             SizedBox(
               width: double.infinity,
