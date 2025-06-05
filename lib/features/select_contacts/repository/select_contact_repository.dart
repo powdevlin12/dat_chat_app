@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dat_chat/common/utils/utils.dart';
+import 'package:dat_chat/models/group_model.dart';
 import 'package:dat_chat/models/user_model.dart';
 import 'package:dat_chat/features/chat/chat_screen.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,8 @@ class SelectContactRepository {
     return contacts;
   }
 
-  void selectContact(String phoneNumber, BuildContext context) async {
+  void selectContact(
+      String phoneNumber, BuildContext context, String groupId) async {
     bool isFound = false;
     UserModel? user;
     try {
@@ -50,13 +52,36 @@ class SelectContactRepository {
       if (isFound) {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => ChatScreen(name: user!.name, uid: user.uid),
+            builder: (context) => ChatScreen(
+              name: user!.name,
+              uid: user.uid,
+              groupId: groupId,
+            ),
           ),
         );
       } else {
         showSnackbar(
             context: context, content: 'This phone  is not found in system');
       }
+    } catch (e) {
+      showSnackbar(context: context, content: e.toString());
+    }
+  }
+
+  void selectContactGroup(BuildContext context, String groupId) async {
+    try {
+      var group = await firestore.collection('groups').doc(groupId).get();
+
+      final groupModel = GroupModel.fromMap(group.data()!);
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => ChatScreen(
+            name: groupModel.name,
+            uid: groupId,
+            groupId: groupId,
+          ),
+        ),
+      );
     } catch (e) {
       showSnackbar(context: context, content: e.toString());
     }

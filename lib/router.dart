@@ -39,10 +39,12 @@ Route<dynamic> generateRoute(RouteSettings setting) {
       final args = setting.arguments as Map<String, dynamic>;
       String name = args['name'];
       String uid = args['uid'];
+      String groupId = args['groupId'];
       return MaterialPageRoute(
         builder: (context) => ChatScreen(
           name: name,
           uid: uid,
+          groupId: groupId,
         ),
       );
     default:

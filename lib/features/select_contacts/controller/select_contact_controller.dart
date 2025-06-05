@@ -22,6 +22,6 @@ class SelectContactController {
   SelectContactController({required this.selectContactRepository});
 
   void selectContact(String phoneNumber, BuildContext context) {
-    selectContactRepository.selectContact(phoneNumber, context);
+    selectContactRepository.selectContact(phoneNumber, context, '');
   }
 }

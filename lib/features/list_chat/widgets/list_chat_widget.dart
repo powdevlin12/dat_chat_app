@@ -31,7 +31,11 @@ class ListChatWidget extends ConsumerWidget {
                       var groupData = snapshot.data![index];
 
                       return InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          ref
+                              .read(selectContactRepositoryProvider)
+                              .selectContactGroup(context, groupData.groupId);
+                        },
                         child: ListTile(
                           title: Text(
                             groupData.name,
@@ -96,7 +100,8 @@ class ListChatWidget extends ConsumerWidget {
                         onTap: () {
                           ref
                               .read(selectContactRepositoryProvider)
-                              .selectContact(chatContactData.phone, context);
+                              .selectContact(
+                                  chatContactData.phone, context, '');
                         },
                         child: ListTile(
                           title: Text(

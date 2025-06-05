@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:dat_chat/common/widgets/bottom_chat_field.dart';
 import 'package:dat_chat/features/auth/controller/auth_controller.dart';
 import 'package:dat_chat/features/chat/chat_controller.dart';
@@ -16,7 +18,12 @@ class ChatScreen extends ConsumerStatefulWidget {
   static const routeName = 'mobile-chat';
   final String name;
   final String uid;
-  const ChatScreen({super.key, required this.name, required this.uid});
+  final String groupId;
+  const ChatScreen(
+      {super.key,
+      required this.name,
+      required this.uid,
+      required this.groupId});
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -54,31 +61,37 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: StreamBuilder<UserModel>(
-          stream: ref.read(authControllerProvider).getUser(widget.uid),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return SizedBox(
-                width: 30,
-                height: 30,
-                child: CircularProgressIndicator(),
-              );
-            }
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  snapshot.data!.name,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                ),
-                Text(
-                  snapshot.data!.isOnline ? 'Online' : 'Offline',
-                  style: TextStyle(fontSize: 13),
-                )
-              ],
-            );
-          },
-        ),
+        title: widget.groupId != ''
+            ? Text(
+                widget.name,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              )
+            : StreamBuilder<UserModel>(
+                stream: ref.read(authControllerProvider).getUser(widget.uid),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return SizedBox(
+                      width: 30,
+                      height: 30,
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        snapshot.data!.name,
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        snapshot.data!.isOnline ? 'Online' : 'Offline',
+                        style: TextStyle(fontSize: 13),
+                      )
+                    ],
+                  );
+                },
+              ),
         actions: [
           IconButton(
             onPressed: () => {},
@@ -98,65 +111,69 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
         child: Column(
           children: [
             Expanded(
-              child: StreamBuilder<List<Message>>(
-                stream: ref
-                    .watch(chatControllerProvider)
-                    .getListMessages(widget.uid),
-                builder: (context, snapshot) {
-                  SchedulerBinding.instance.addPostFrameCallback((_) {
-                    messageController
-                        .jumpTo(messageController.position.maxScrollExtent);
-                  });
-                  return ListView.builder(
-                    controller: messageController,
-                    itemCount: snapshot.data?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      if (snapshot.hasError) {
-                        return const Center(
-                          child: Text('Something went wrong'),
-                        );
-                      }
-                      if (snapshot.data!.isEmpty) {
-                        return const Center(
-                          child: Text('Say hi to your friend'),
-                        );
-                      }
-                      final message = snapshot.data![index];
-                      String time = DateFormat.Hm().format(message.timeSent);
+              child: widget.groupId == ''
+                  ? StreamBuilder<List<Message>>(
+                      stream: ref
+                          .watch(chatControllerProvider)
+                          .getListMessages(widget.uid),
+                      builder: (context, snapshot) {
+                        SchedulerBinding.instance.addPostFrameCallback((_) {
+                          messageController.jumpTo(
+                              messageController.position.maxScrollExtent);
+                        });
+                        return ListView.builder(
+                          controller: messageController,
+                          itemCount: snapshot.data?.length ?? 0,
+                          itemBuilder: (context, index) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            if (snapshot.hasError) {
+                              return const Center(
+                                child: Text('Something went wrong'),
+                              );
+                            }
+                            if (snapshot.data!.isEmpty) {
+                              return const Center(
+                                child: Text('Say hi to your friend'),
+                              );
+                            }
+                            final message = snapshot.data![index];
+                            String time =
+                                DateFormat.Hm().format(message.timeSent);
 
-                      if (!message.isSeen &&
-                          FirebaseAuth.instance.currentUser!.uid ==
-                              message.recieverid) {
-                        ref.read(chatControllerProvider).setSeenMessage(
-                              messageId: message.messageId,
-                              recieverUserId: message.senderId,
+                            if (!message.isSeen &&
+                                FirebaseAuth.instance.currentUser!.uid ==
+                                    message.recieverid) {
+                              ref.read(chatControllerProvider).setSeenMessage(
+                                    messageId: message.messageId,
+                                    recieverUserId: message.senderId,
+                                  );
+                            }
+
+                            if (message.senderId != widget.uid) {
+                              return MyMessageCard(
+                                  message: message.text,
+                                  time: time,
+                                  username: 'me',
+                                  replyMessage: message.repliedMessage,
+                                  isSeen: message.isSeen);
+                            }
+
+                            return SendMessageCard(
+                              message: message.text,
+                              time: time,
+                              username: widget.name,
+                              replyMessage: message.repliedMessage,
                             );
-                      }
-
-                      if (message.senderId != widget.uid) {
-                        return MyMessageCard(
-                            message: message.text,
-                            time: time,
-                            username: 'me',
-                            replyMessage: message.repliedMessage,
-                            isSeen: message.isSeen);
-                      }
-
-                      return SendMessageCard(
-                        message: message.text,
-                        time: time,
-                        username: widget.name,
-                        replyMessage: message.repliedMessage,
-                      );
-                    },
-                  );
-                },
-              ),
+                          },
+                        );
+                      },
+                    )
+                  : Text('List chat group'),
             ),
             MessageReply(),
             SizedBox(
