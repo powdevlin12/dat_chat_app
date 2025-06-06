@@ -42,6 +42,22 @@ class ChatRepository {
     });
   }
 
+  Stream<List<Message>> getGroupChatStream(String groudId) {
+    return firestore
+        .collection('groups')
+        .doc(groudId)
+        .collection('chats')
+        .orderBy('timeSent')
+        .snapshots()
+        .map((event) {
+      List<Message> messages = [];
+      for (var document in event.docs) {
+        messages.add(Message.fromMap(document.data()));
+      }
+      return messages;
+    });
+  }
+
   void _saveDataToChatsSubcollection(
     UserModel senderUserData,
     UserModel? recieverUserData,

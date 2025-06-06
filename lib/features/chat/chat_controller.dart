@@ -47,6 +47,10 @@ class ChatController {
     return chatRepository.getListMessages(recieverUserId);
   }
 
+  Stream<List<Message>> getListGroupChatMessage(String groudId) {
+    return chatRepository.getGroupChatStream(groudId);
+  }
+
   void setStatus(bool status) {
     ref.read(chatRepositoryProvider).setStatus(status);
   }
