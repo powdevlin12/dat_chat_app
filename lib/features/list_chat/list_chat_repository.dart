@@ -68,33 +68,4 @@ class ListChatRepository {
       return Stream.value([]);
     }
   }
-
-  // Thêm hàm này để test trực tiếp
-  Future<void> testDirectQuery() async {
-    final uid = auth.currentUser!.uid;
-    debugPrint('Testing with UID: $uid');
-
-    try {
-      // Kiểm tra user document
-      final userDoc = await firestore.collection('users').doc(uid).get();
-      debugPrint('User exists: ${userDoc.exists}');
-      if (userDoc.exists) {
-        debugPrint('User data: ${userDoc.data()}');
-      }
-
-      // Kiểm tra chats collection
-      final chatsSnapshot = await firestore
-          .collection('users')
-          .doc(uid)
-          .collection('chats')
-          .get();
-
-      debugPrint('Chats count: ${chatsSnapshot.docs.length}');
-      for (var doc in chatsSnapshot.docs) {
-        debugPrint('Chat ID: ${doc.id}, data: ${doc.data()}');
-      }
-    } catch (e) {
-      debugPrint('Error testing direct query: $e');
-    }
-  }
 }

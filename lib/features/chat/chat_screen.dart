@@ -1,8 +1,10 @@
 import 'dart:ffi';
 
+import 'package:dat_chat/common/provider/current_user.dart';
 import 'package:dat_chat/common/widgets/bottom_chat_field.dart';
 import 'package:dat_chat/features/auth/controller/auth_controller.dart';
 import 'package:dat_chat/features/chat/chat_controller.dart';
+import 'package:dat_chat/features/chat/chat_repository.dart';
 import 'package:dat_chat/features/chat/widgets/message_reply.dart';
 import 'package:dat_chat/features/chat/widgets/my_message_card.dart';
 import 'package:dat_chat/features/chat/widgets/send_message_card.dart';
@@ -19,11 +21,12 @@ class ChatScreen extends ConsumerStatefulWidget {
   final String name;
   final String uid;
   final String groupId;
-  const ChatScreen(
-      {super.key,
-      required this.name,
-      required this.uid,
-      required this.groupId});
+  const ChatScreen({
+    super.key,
+    required this.name,
+    required this.uid,
+    required this.groupId,
+  });
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -155,7 +158,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen>
                           );
                     }
 
-                    if (message.senderId != widget.uid) {
+                    if (message.senderId ==
+                        ref
+                            .watch(chatRepositoryProvider)
+                            .auth
+                            .currentUser!
+                            .uid) {
                       return MyMessageCard(
                           message: message.text,
                           time: time,
