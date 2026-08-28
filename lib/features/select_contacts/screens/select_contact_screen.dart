@@ -48,7 +48,7 @@ class _SelectContactScreenState extends ConsumerState<SelectContactScreen> {
                   },
                   child: ListTile(
                     title: Text(
-                      contact.displayName,
+                      contact.displayName ?? '',
                       style: TextStyle(fontSize: 18),
                     ),
                   ),

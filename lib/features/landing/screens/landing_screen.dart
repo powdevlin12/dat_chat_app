@@ -23,7 +23,7 @@ class LandingScreen extends StatelessWidget {
             children: [
               Gap(size.height / 12),
               Text(
-                'Welcome to Whatsapps',
+                'Welcome to Whatsapp',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 33, fontWeight: FontWeight.w600),
               ),

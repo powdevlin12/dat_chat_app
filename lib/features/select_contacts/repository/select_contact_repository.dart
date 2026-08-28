@@ -21,8 +21,13 @@ class SelectContactRepository {
   Future<List<Contact>> getContacts() async {
     List<Contact> contacts = [];
     try {
-      if (await FlutterContacts.requestPermission()) {
-        contacts = await FlutterContacts.getContacts(withProperties: true);
+      final status =
+          await FlutterContacts.permissions.request(PermissionType.read);
+      if (status == PermissionStatus.granted ||
+          status == PermissionStatus.limited) {
+        contacts = await FlutterContacts.getAll(
+          properties: {ContactProperty.name, ContactProperty.phone},
+        );
       }
     } catch (e) {
       debugPrint('--------------$e');

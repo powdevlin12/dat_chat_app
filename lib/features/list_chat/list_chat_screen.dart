@@ -3,7 +3,7 @@ import 'package:dat_chat/features/create_group/create_group_screen.dart';
 import 'package:dat_chat/features/list_chat/widgets/list_chat_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:dat_chat/l10n/app_localizations.dart';
 
 class ListChatScreen extends ConsumerStatefulWidget {
   static const routeName = 'list-chat-screen';
